@@ -1,0 +1,13 @@
+DROP TABLE IF EXISTS ghosts, users;
+
+CREATE TABLE ghosts (
+    id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    name,
+    image
+)
+
+CREATE TABLE users (
+    id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    email,
+    hash
+)
