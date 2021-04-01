@@ -57,4 +57,12 @@ describe('lab-04-build-something routes', () => {
         expect(res.status).toEqual(200);
       });
   });
+
+  it('get /search calls on the giphy api and returns the corresponding gifs', () => {
+    return request(app)
+      .get('/v1/gifs/search/cheese')
+      .then((res) => {
+        expect(res.status).toEqual(200);
+      });
+  });
 });
