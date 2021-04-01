@@ -10,47 +10,35 @@ const request = require('supertest');
 // }));
 
 describe('lab-04-build-something routes', () => {
-  beforeEach(() => {
-    return setup(pool);
-  });
+  // beforeEach(() => {
+  //   return setup(pool);
+  // });
 
-  let token;
-  beforeEach(async done => {
-    pool.connect();
+  // let token;
+  // beforeEach(async done => {
+  //   pool.connect();
 
-    const signInData = await request(app)
-      .post('/auth/signup')
-      .send({
-        email: 'reza@user.com',
-        password: '1234'
-      });
+  //   const signInData = await request(app)
+  //     .post('/auth/signup')
+  //     .send({
+  //       email: 'reza@user.com',
+  //       password: '1234'
+  //     });
     
-    token = signInData.body.token; // eslint-disable-line
+  //   token = signInData.body.token; // eslint-disable-line
 
-    return done();
-  });
+  //   return done();
+  // });
 
-  afterEach(done => {
-    return pool.end(done);
-  });
+  // afterEach(done => {
+  //   return pool.end(done);
+  // });
 
-  it('creates a new contact in the database', () => {
-    const contact = {
-      id: '1',
-      name: 'Hamid Tehrani',
-      phoneNumber: 12345678
-    }
-    
+  it('get /trending calls on the giphy api and returns the trending gifs', () => {
     return request(app)
-      .post('/api/contacts')
-      .send(contact)
+      .get('/v1/gifs/trending')
       .then((res) => {
-        expect(res.body).toEqual({
-          id: '1',
-          name: 'Hamid Tehrani',
-          phoneNumber: 12345678,
-          userId: '1'
-        });
+        expect(res.status).toEqual(200);
       });
   });
 });
