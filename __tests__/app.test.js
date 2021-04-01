@@ -9,31 +9,7 @@ const request = require('supertest');
 //   },
 // }));
 
-describe('lab-04-build-something routes', () => {
-  // beforeEach(() => {
-  //   return setup(pool);
-  // });
-
-  // let token;
-  // beforeEach(async done => {
-  //   pool.connect();
-
-  //   const signInData = await request(app)
-  //     .post('/auth/signup')
-  //     .send({
-  //       email: 'reza@user.com',
-  //       password: '1234'
-  //     });
-    
-  //   token = signInData.body.token; // eslint-disable-line
-
-  //   return done();
-  // });
-
-  // afterEach(done => {
-  //   return pool.end(done);
-  // });
-
+describe.skip('giphy routes', () => {
   it('get /trending calls on the giphy api and returns the trending gifs', () => {
     return request(app)
       .get('/gifs/trending')
@@ -75,3 +51,42 @@ describe('lab-04-build-something routes', () => {
   });
 
 });
+
+describe('favorites routes', () =>{
+  beforeEach(() => {
+  return setup(pool);
+  });
+
+  afterEach(done => {
+    return pool.end(done);
+  });
+
+  it('', () =>{
+
+  });
+
+})
+
+  // beforeEach(() => {
+  //   return setup(pool);
+  // });
+
+  // let token;
+  // beforeEach(async done => {
+  //   pool.connect();
+
+  //   const signInData = await request(app)
+  //     .post('/auth/signup')
+  //     .send({
+  //       email: 'reza@user.com',
+  //       password: '1234'
+  //     });
+    
+  //   token = signInData.body.token; // eslint-disable-line
+
+  //   return done();
+  // });
+
+  // afterEach(done => {
+  //   return pool.end(done);
+  // });
