@@ -2,27 +2,28 @@ DROP TABLE IF EXISTS users, contacts;
 
 CREATE TABLE users (
     id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-    email TEXT NOT NULL,
-    hash TEXT NOT NULL,
-    user_name TEXT NOT NULL
+    email VARCHAR NOT NULL,
+    hash VARCHAR NOT NULL,
+    user_name VARCHAR NOT NULL
 );
 CREATE TABLE favorites (
-    id TEXT ALWAYS AS IDENTITY PRIMARY KEY,
-    title TEXT NOT NULL,
-    images OBJECT NOT NULL,
-    slug TEXT NOT NULL,  
-    url TEXT NOT NULL,
-    bitly_url TEXT NOT NULL,
-    embed_url TEXT NOT NULL,
-    username TEXT NOT NULL,
-    source TEXT NOT NULL,
-    source_post_url TEXT NOT NULL,
-    rating TEXT NOT NULL,
+    id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    item_id VARCHAR NOT NULL,
+    title VARCHAR NOT NULL,
+    images VARCHAR NOT NULL,
+    slug VARCHAR NOT NULL,  
+    url VARCHAR NOT NULL,
+    bitly_url VARCHAR NOT NULL,
+    embed_url VARCHAR NOT NULL,
+    username VARCHAR NOT NULL,
+    source VARCHAR NOT NULL,
+    source_post_url VARCHAR NOT NULL,
+    rating VARCHAR NOT NULL,
     collection BIGINT,    
     user_id BIGINT NOT NULL
 );
 CREATE TABLE collections (
     id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-    name TEXT NOT NULL,
+    name VARCHAR NOT NULL,
     user_id BIGINT NOT NULL
 );

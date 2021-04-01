@@ -36,7 +36,7 @@ describe('lab-04-build-something routes', () => {
 
   it('get /trending calls on the giphy api and returns the trending gifs', () => {
     return request(app)
-      .get('/v1/gifs/trending')
+      .get('/gifs/trending')
       .then((res) => {
         expect(res.status).toEqual(200);
       });
@@ -44,7 +44,7 @@ describe('lab-04-build-something routes', () => {
 
   it('get /:id calls on the giphy api and returns the gifs with the corresponding id', () => {
     return request(app)
-      .get('/v1/gifs/xXbwgiIjYaZJC86YCk')
+      .get('/gifs/xXbwgiIjYaZJC86YCk')
       .then((res) => {
         expect(res.status).toEqual(200)
       });
@@ -52,7 +52,7 @@ describe('lab-04-build-something routes', () => {
 
   it('get /random calls on the giphy api and returns the a random gif', () => {
     return request(app)
-      .get('/v1/gifs/random/cheese')
+      .get('/gifs/random/cheese')
       .then((res) => {
         expect(res.status).toEqual(200);
       });
@@ -60,9 +60,18 @@ describe('lab-04-build-something routes', () => {
 
   it('get /search calls on the giphy api and returns the corresponding gifs', () => {
     return request(app)
-      .get('/v1/gifs/search/cheese')
+      .get('/gifs/search/cheese')
       .then((res) => {
         expect(res.status).toEqual(200);
       });
   });
+
+  it('get /categories calls on the giphy api and returns an array of categories', () => {
+    return request(app)
+      .get('/gifs/categories')
+      .then((res) => {
+        expect(res.status).toEqual(200);
+      });
+  });
+
 });
