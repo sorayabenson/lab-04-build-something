@@ -46,7 +46,7 @@ describe('lab-04-build-something routes', () => {
     return request(app)
       .get('/v1/gifs/xXbwgiIjYaZJC86YCk')
       .then((res) => {
-        expect(res.status).toEqual(200);
+        expect(res.status).toEqual(200)
       });
   });
 
