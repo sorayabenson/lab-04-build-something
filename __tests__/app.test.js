@@ -41,4 +41,12 @@ describe('lab-04-build-something routes', () => {
         expect(res.status).toEqual(200);
       });
   });
+
+  it('get /:id calls on the giphy api and returns the gifs with the corresponding id', () => {
+    return request(app)
+      .get('/v1/gifs/xXbwgiIjYaZJC86YCk')
+      .then((res) => {
+        expect(res.status).toEqual(200);
+      });
+  });
 });
