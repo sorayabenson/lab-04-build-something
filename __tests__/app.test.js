@@ -49,4 +49,12 @@ describe('lab-04-build-something routes', () => {
         expect(res.status).toEqual(200);
       });
   });
+
+  it('get /random calls on the giphy api and returns the a random gif', () => {
+    return request(app)
+      .get('/v1/gifs/random/cheese')
+      .then((res) => {
+        expect(res.status).toEqual(200);
+      });
+  });
 });
