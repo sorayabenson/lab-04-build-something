@@ -58,29 +58,30 @@ describe('favorites routes', () =>{
   return setup(pool);
   });
 
-  // let favorites;
-  // beforeEach(async () => {
-  //   favorites = await Favorite.insert({
-  //     item_id: 'test1234',
-  //     title: 'cheese',
-  //     images: { 'type':'cheese', 'file':'images'},
-  //     slug: 'cheese slug',  
-  //     url: 'cheese.com',
-  //     bitly_url: 'bitly.cheese.com',
-  //     embed_url: 'embed.cheese.com',
-  //     item_username: 'Cheese Baby',
-  //     source: 'cheese',
-  //     source_post_url: 'cheeseforever.com',
-  //     rating: 'g',
-  //     user_id: 1
-  //   })
-  // })
+  let favorites;
+  beforeEach(async () => {
+    favorites = await Favorite.insert({
+      item_id: 'test1234',
+      title: 'cheese',
+      images: { 'type':'cheese', 'file':'images'},
+      slug: 'cheese slug',  
+      url: 'cheese.com',
+      bitly_url: 'bitly.cheese.com',
+      embed_url: 'embed.cheese.com',
+      item_username: 'Cheese Baby',
+      source: 'cheese',
+      source_post_url: 'cheeseforever.com',
+      rating: 'g',
+      collection: 53,
+      user_id: 1
+    })
+  })
 
   afterEach(done => {
     return pool.end(done);
   });
 
-  it('post /favorites creates a new favorite', () =>{
+  it('post /favorites creates a new favorite', () => {
     const newFave = {
       item_id: 'test1234turtle',
       title: 'turtle',
@@ -101,7 +102,7 @@ describe('favorites routes', () =>{
       .send(newFave)
       .then((res) => {
         expect(res.body).toEqual({
-          id: '1',
+          id: '2',
           item_id: 'test1234turtle',
           title: 'turtle',
           images: '{"type":"turtle","file":"images"}',
@@ -116,8 +117,16 @@ describe('favorites routes', () =>{
           collection: null,
           user_id: '1'
         })
-      })
+      });
   });
+
+  it('get /favorites returns the user`s favorites', () => {
+    return request(app)
+      .get('/api/favorites')
+      .then((res) => {
+        expect(res.body).toEqual('dog');
+      })
+  })
 
 })
 
