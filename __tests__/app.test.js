@@ -229,7 +229,7 @@ describe('favorites routes', () =>{
           source: 'cheese',
           source_post_url: 'cheeseforever.com',
           rating: 'g',
-          collection: '53',
+          collection: '2',
           user_id: '1'
         })
       })
