@@ -258,23 +258,23 @@ describe('collection routes', () =>{
     return done();
   });
 
-  // let favorites;
-  // beforeEach(async () => {
-  //   favorites = await Favorite.insert({
-  //     item_id: 'test1234',
-  //     title: 'cheese',
-  //     images: {'type':'cheese','file':'images'},
-  //     slug: 'cheese slug',  
-  //     url: 'cheese.com',
-  //     bitly_url: 'bitly.cheese.com',
-  //     embed_url: 'embed.cheese.com',
-  //     item_username: 'Cheese Baby',
-  //     source: 'cheese',
-  //     source_post_url: 'cheeseforever.com',
-  //     rating: 'g',
-  //     collection: 53
-  //   }, 1)
-  // })
+  let favorites;
+  beforeEach(async () => {
+    favorites = await Favorite.insert({
+      item_id: 'test1234',
+      title: 'cheese',
+      images: {'type':'cheese','file':'images'},
+      slug: 'cheese slug',  
+      url: 'cheese.com',
+      bitly_url: 'bitly.cheese.com',
+      embed_url: 'embed.cheese.com',
+      item_username: 'Cheese Baby',
+      source: 'cheese',
+      source_post_url: 'cheeseforever.com',
+      rating: 'g',
+      collection: 1
+    }, 1)
+  })
 
   let collections;
   beforeEach(async () => {
@@ -306,9 +306,32 @@ describe('collection routes', () =>{
       .get('/api/collections')
       .set('Authorization', token)
       .then((res) => {
-        expect(res.body[0]).toEqual({
+        expect(res.body).toEqual([{
           id: '1',
           name: 'turtles',
+          user_id: '1'
+        }]);
+      })
+  });
+
+  it('get /collections/:id returns the specific collection joined with the favorites table on id', () => {
+    return request(app)
+      .get('/api/collections/1')
+      .set('Authorization', token)
+      .then((res) => {
+        expect(res.body[0]).toEqual({
+          item_id: 'test1234',
+          title: 'cheese',
+          images: {'type':'cheese','file':'images'},
+          slug: 'cheese slug',  
+          url: 'cheese.com',
+          bitly_url: 'bitly.cheese.com',
+          embed_url: 'embed.cheese.com',
+          item_username: 'Cheese Baby',
+          source: 'cheese',
+          source_post_url: 'cheeseforever.com',
+          rating: 'g',
+          collection: '1',
           user_id: '1'
         });
       })
