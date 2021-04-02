@@ -54,8 +54,23 @@ describe.skip('giphy routes', () => {
 });
 
 describe('favorites routes', () =>{
-  beforeEach(() => {
+  beforeAll(() => {
   return setup(pool);
+  });
+  
+  let token;
+  beforeAll(async done => {
+    const signInData = await request(app)
+      .post('/auth/signup')
+      .send({
+        email: 'reza@user.com',
+        password: '1234',
+        user_name: 'rezaTheGreat'
+      });
+    
+    token = signInData.body.token; // eslint-disable-line
+
+    return done();
   });
 
   let favorites;
@@ -63,7 +78,7 @@ describe('favorites routes', () =>{
     favorites = await Favorite.insert({
       item_id: 'test1234',
       title: 'cheese',
-      images: { 'type':'cheese', 'file':'images'},
+      images: {'type':'cheese','file':'images'},
       slug: 'cheese slug',  
       url: 'cheese.com',
       bitly_url: 'bitly.cheese.com',
@@ -72,12 +87,11 @@ describe('favorites routes', () =>{
       source: 'cheese',
       source_post_url: 'cheeseforever.com',
       rating: 'g',
-      collection: 53,
-      user_id: 1
-    })
+      collection: 53
+    }, 1)
   })
 
-  afterEach(done => {
+  afterAll(done => {
     return pool.end(done);
   });
 
@@ -93,12 +107,12 @@ describe('favorites routes', () =>{
       item_username: 'turtle Baby',
       source: 'turtle',
       source_post_url: 'turtleforever.com',
-      rating: 'g',
-      user_id: 1
+      rating: 'g'
     }
     
     return request(app)
       .post('/api/favorites')
+      .set('Authorization', token)
       .send(newFave)
       .then((res) => {
         expect(res.body).toEqual({
@@ -123,33 +137,25 @@ describe('favorites routes', () =>{
   it('get /favorites returns the user`s favorites', () => {
     return request(app)
       .get('/api/favorites')
+      .set('Authorization', token)
       .then((res) => {
-        expect(res.body).toEqual('dog');
+        expect(res.body[0]).toEqual({
+          id: '1',
+          item_id: 'test1234',
+          title: 'cheese',
+          images: '{"type":"cheese","file":"images"}',
+          slug: 'cheese slug',  
+          url: 'cheese.com',
+          bitly_url: 'bitly.cheese.com',
+          embed_url: 'embed.cheese.com',
+          item_username: 'Cheese Baby',
+          source: 'cheese',
+          source_post_url: 'cheeseforever.com',
+          rating: 'g',
+          collection: '53',
+          user_id: '1'
+        });
       })
   })
 
 })
-
-  // beforeEach(() => {
-  //   return setup(pool);
-  // });
-
-  // let token;
-  // beforeEach(async done => {
-  //   pool.connect();
-
-  //   const signInData = await request(app)
-  //     .post('/auth/signup')
-  //     .send({
-  //       email: 'reza@user.com',
-  //       password: '1234'
-  //     });
-    
-  //   token = signInData.body.token; // eslint-disable-line
-
-  //   return done();
-  // });
-
-  // afterEach(done => {
-  //   return pool.end(done);
-  // });
