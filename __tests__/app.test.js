@@ -182,4 +182,45 @@ describe('favorites routes', () =>{
       })
   })
 
+  it('put /favorites/:id updates the corresponding favorite object', () => {
+    const updatedFave = {
+      id: '1',
+      item_id: 'test1234',
+      title: 'cheese',
+      images: '{"type":"cheese","file":"images"}',
+      slug: 'cheese slug',  
+      url: 'cheese.com',
+      bitly_url: 'bitly.cheese.com',
+      embed_url: 'embed.cheese.com',
+      item_username: 'Cheese Baby',
+      source: 'cheese',
+      source_post_url: 'cheeseforever.com',
+      rating: 'g',
+      collection: 2
+    }
+
+    return request(app)
+      .put('/api/favorites/1')
+      .set('Authorization', token)
+      .send(updatedFave)
+      .then((res) => {
+        expect(res.body).toEqual({
+          id: '1',
+          item_id: 'test1234',
+          title: 'cheese',
+          images: '{"type":"cheese","file":"images"}',
+          slug: 'cheese slug',  
+          url: 'cheese.com',
+          bitly_url: 'bitly.cheese.com',
+          embed_url: 'embed.cheese.com',
+          item_username: 'Cheese Baby',
+          source: 'cheese',
+          source_post_url: 'cheeseforever.com',
+          rating: 'g',
+          collection: '2',
+          user_id: '1'
+        })
+      })
+  })
+
 })
