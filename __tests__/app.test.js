@@ -337,5 +337,44 @@ describe('collection routes', () =>{
         });
       })
   });
-});
+
+  it('put /collections/:id updated the name of a collection', () => {
+    return request(app)
+      .put('/api/collections/1')
+      .set('Authorization', token)
+      .send({ name: 'cheese turtles' })
+      .then((res) => {
+        expect(res.body).toEqual({
+          id: '1',
+          name: 'cheese turtles',
+          user_id: '1'
+        });
+      })
+  });
+
+  it('put /collection/:id change is reflected when get /collection/:id', () =>{
+    return request(app)
+      .get('/api/collections/1')
+        .set('Authorization', token)
+        .then((res) => {
+          expect(res.body[0]).toEqual({
+            collection_name: 'cheese turtles',
+            favorite_id: '1',
+            item_id: 'test1234',
+            title: 'cheese',
+            images: '{"type":"cheese","file":"images"}',
+            slug: 'cheese slug',  
+            url: 'cheese.com',
+            bitly_url: 'bitly.cheese.com',
+            embed_url: 'embed.cheese.com',
+            item_username: 'Cheese Baby',
+            source: 'cheese',
+            source_post_url: 'cheeseforever.com',
+            rating: 'g',
+            user_id: '1'
+          });
+        });
+  });
+  
+})
 
