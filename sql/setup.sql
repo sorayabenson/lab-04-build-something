@@ -19,7 +19,7 @@ CREATE TABLE favorites (
     source VARCHAR NOT NULL,
     source_post_url VARCHAR NOT NULL,
     rating VARCHAR NOT NULL,
-    collection BIGINT,    
+    collection_id BIGINT,    
     user_id BIGINT NOT NULL
 );
 CREATE TABLE collections (

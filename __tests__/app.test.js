@@ -88,7 +88,7 @@ describe.skip('favorites routes', () =>{
       source: 'cheese',
       source_post_url: 'cheeseforever.com',
       rating: 'g',
-      collection: 53
+      collection_id: 53
     }, 1)
   })
 
@@ -129,7 +129,7 @@ describe.skip('favorites routes', () =>{
           source: 'turtle',
           source_post_url: 'turtleforever.com',
           rating: 'g',
-          collection: null,
+          collection_id: null,
           user_id: '1'
         })
       });
@@ -153,7 +153,7 @@ describe.skip('favorites routes', () =>{
           source: 'cheese',
           source_post_url: 'cheeseforever.com',
           rating: 'g',
-          collection: '53',
+          collection_id: '53',
           user_id: '1'
         });
       })
@@ -177,7 +177,7 @@ describe.skip('favorites routes', () =>{
           source: 'cheese',
           source_post_url: 'cheeseforever.com',
           rating: 'g',
-          collection: '53',
+          collection_id: '53',
           user_id: '1'
         })
       })
@@ -185,7 +185,7 @@ describe.skip('favorites routes', () =>{
 
   it('put /favorites/:id updates the corresponding favorite object', () => {
     const updatedFave = {
-      collection: 2
+      collection_id: 2
     }
 
     return request(app)
@@ -206,7 +206,7 @@ describe.skip('favorites routes', () =>{
           source: 'cheese',
           source_post_url: 'cheeseforever.com',
           rating: 'g',
-          collection: '2',
+          collection_id: '2',
           user_id: '1'
         })
       })
@@ -230,7 +230,7 @@ describe.skip('favorites routes', () =>{
           source: 'cheese',
           source_post_url: 'cheeseforever.com',
           rating: 'g',
-          collection: '53',
+          collection_id: '53',
           user_id: '1'
         })
       })
@@ -272,7 +272,7 @@ describe('collection routes', () =>{
       source: 'cheese',
       source_post_url: 'cheeseforever.com',
       rating: 'g',
-      collection: 1
+      collection_id: 1
     }, 1)
   })
 
@@ -283,9 +283,9 @@ describe('collection routes', () =>{
     }, 1)
   })
 
-  afterAll(done => {
-    return pool.end(done);
-  });
+  // afterAll(done => {
+  //   return pool.end(done);
+  // });
 
   it('post /collections creates a new collection', () => {
     return request(app)
@@ -320,9 +320,11 @@ describe('collection routes', () =>{
       .set('Authorization', token)
       .then((res) => {
         expect(res.body[0]).toEqual({
+          collection_name: 'turtles',
+          favorite_id: '1',
           item_id: 'test1234',
           title: 'cheese',
-          images: {'type':'cheese','file':'images'},
+          images: '{"type":"cheese","file":"images"}',
           slug: 'cheese slug',  
           url: 'cheese.com',
           bitly_url: 'bitly.cheese.com',
@@ -331,7 +333,6 @@ describe('collection routes', () =>{
           source: 'cheese',
           source_post_url: 'cheeseforever.com',
           rating: 'g',
-          collection: '1',
           user_id: '1'
         });
       })
