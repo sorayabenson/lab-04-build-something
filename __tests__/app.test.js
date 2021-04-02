@@ -53,13 +53,13 @@ describe.skip('giphy routes', () => {
 
 });
 
-describe('favorites routes', () =>{
-  beforeAll(() => {
+describe.skip('favorites routes', () =>{
+  beforeEach(() => {
   return setup(pool);
   });
   
   let token;
-  beforeAll(async done => {
+  beforeEach(async done => {
     const signInData = await request(app)
       .post('/auth/signup')
       .send({
@@ -229,10 +229,68 @@ describe('favorites routes', () =>{
           source: 'cheese',
           source_post_url: 'cheeseforever.com',
           rating: 'g',
-          collection: '2',
+          collection: '53',
           user_id: '1'
         })
       })
   })
 
-})
+});
+
+describe('collection routes', () =>{
+  beforeEach(() => {
+  return setup(pool);
+  });
+  
+  let token;
+  beforeEach(async done => {
+    const signInData = await request(app)
+      .post('/auth/signup')
+      .send({
+        email: 'reza@user.com',
+        password: '1234',
+        user_name: 'rezaTheGreat'
+      });
+    
+    token = signInData.body.token; // eslint-disable-line
+
+    return done();
+  });
+
+  // let favorites;
+  // beforeEach(async () => {
+  //   favorites = await Favorite.insert({
+  //     item_id: 'test1234',
+  //     title: 'cheese',
+  //     images: {'type':'cheese','file':'images'},
+  //     slug: 'cheese slug',  
+  //     url: 'cheese.com',
+  //     bitly_url: 'bitly.cheese.com',
+  //     embed_url: 'embed.cheese.com',
+  //     item_username: 'Cheese Baby',
+  //     source: 'cheese',
+  //     source_post_url: 'cheeseforever.com',
+  //     rating: 'g',
+  //     collection: 53
+  //   }, 1)
+  // })
+
+  afterAll(done => {
+    return pool.end(done);
+  });
+
+  it('post /collections creates a new collection', () => {
+    return request(app)
+      .post('/api/collections')
+      .set('Authorization', token)
+      .send({ name: 'cheese gifs'})
+      .then((res) => {
+        expect(res.body).toEqual({
+          id: '1',
+          name: 'cheese gifs',
+          user_id: '1'
+        });
+      })
+    });
+});
+
