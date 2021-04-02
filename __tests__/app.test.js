@@ -211,4 +211,28 @@ describe('favorites routes', () =>{
       })
   })
 
+  it('delete /favorites/:id deletes the corresponding favorite object', () => {
+    return request(app)
+      .delete('/api/favorites/1')
+      .set('Authorization', token)
+      .then((res) => {
+        expect(res.body).toEqual({
+          id: '1',
+          item_id: 'test1234',
+          title: 'cheese',
+          images: '{"type":"cheese","file":"images"}',
+          slug: 'cheese slug',  
+          url: 'cheese.com',
+          bitly_url: 'bitly.cheese.com',
+          embed_url: 'embed.cheese.com',
+          item_username: 'Cheese Baby',
+          source: 'cheese',
+          source_post_url: 'cheeseforever.com',
+          rating: 'g',
+          collection: '53',
+          user_id: '1'
+        })
+      })
+  })
+
 })
