@@ -3,6 +3,7 @@ const setup = require('../data/setup');
 const app = require('../lib/app');
 const request = require('supertest');
 const Favorite = require('../lib/models/Favorite');
+const Collection = require('../lib/models/Collection');
 
 // jest.mock('twilio', () => () => ({
 //   messages: {
@@ -275,6 +276,13 @@ describe('collection routes', () =>{
   //   }, 1)
   // })
 
+  let collections;
+  beforeEach(async () => {
+    collections = await Collection.insert({
+      name: 'turtles'
+    }, 1)
+  })
+
   afterAll(done => {
     return pool.end(done);
   });
@@ -286,11 +294,24 @@ describe('collection routes', () =>{
       .send({ name: 'cheese gifs'})
       .then((res) => {
         expect(res.body).toEqual({
-          id: '1',
+          id: '2',
           name: 'cheese gifs',
           user_id: '1'
         });
       })
-    });
+  });
+
+  it('get /collections returns all of a users collections', () => {
+    return request(app)
+      .get('/api/collections')
+      .set('Authorization', token)
+      .then((res) => {
+        expect(res.body[0]).toEqual({
+          id: '1',
+          name: 'turtles',
+          user_id: '1'
+        });
+      })
+  });
 });
 
