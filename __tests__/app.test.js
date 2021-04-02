@@ -58,22 +58,23 @@ describe('favorites routes', () =>{
   return setup(pool);
   });
 
-  let favorites;
-  beforeEach(async () => {
-    favorites = await Favorite.insert({
-      item_id: 'test1234',
-      title: 'cheese',
-      images: { 'type':'cheese', 'file':'images'},
-      slug: 'cheese slug',  
-      url: 'cheese.com',
-      bitly_url: 'bitly.cheese.com',
-      embed_url: 'embed.cheese.com',
-      username: 'Cheese Baby',
-      source: 'cheese',
-      source_post_url: 'cheeseforever.com',
-      rating: 'g'
-    })
-  })
+  // let favorites;
+  // beforeEach(async () => {
+  //   favorites = await Favorite.insert({
+  //     item_id: 'test1234',
+  //     title: 'cheese',
+  //     images: { 'type':'cheese', 'file':'images'},
+  //     slug: 'cheese slug',  
+  //     url: 'cheese.com',
+  //     bitly_url: 'bitly.cheese.com',
+  //     embed_url: 'embed.cheese.com',
+  //     item_username: 'Cheese Baby',
+  //     source: 'cheese',
+  //     source_post_url: 'cheeseforever.com',
+  //     rating: 'g',
+  //     user_id: 1
+  //   })
+  // })
 
   afterEach(done => {
     return pool.end(done);
@@ -83,33 +84,37 @@ describe('favorites routes', () =>{
     const newFave = {
       item_id: 'test1234turtle',
       title: 'turtle',
-      images: { 'type':'turtle', 'file':'images'},
+      images: {'type':'turtle', 'file':'images'},
       slug: 'turtle slug',  
       url: 'turtle.com',
       bitly_url: 'bitly.turtle.com',
       embed_url: 'embed.turtle.com',
-      username: 'turtle Baby',
+      item_username: 'turtle Baby',
       source: 'turtle',
       source_post_url: 'turtleforever.com',
-      rating: 'g'
+      rating: 'g',
+      user_id: 1
     }
+    
     return request(app)
-      .post('/favorites')
+      .post('/api/favorites')
       .send(newFave)
       .then((res) => {
         expect(res.body).toEqual({
-          id: 2,
+          id: '1',
           item_id: 'test1234turtle',
           title: 'turtle',
-          images: { 'type':'turtle', 'file':'images'},
+          images: '{"type":"turtle","file":"images"}',
           slug: 'turtle slug',  
           url: 'turtle.com',
           bitly_url: 'bitly.turtle.com',
           embed_url: 'embed.turtle.com',
-          username: 'turtle Baby',
+          item_username: 'turtle Baby',
           source: 'turtle',
           source_post_url: 'turtleforever.com',
-          rating: 'g'
+          rating: 'g',
+          collection: null,
+          user_id: '1'
         })
       })
   });

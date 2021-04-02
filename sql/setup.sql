@@ -1,4 +1,4 @@
-DROP TABLE IF EXISTS users, contacts;
+DROP TABLE IF EXISTS users, favorites, collections;
 
 CREATE TABLE users (
     id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
@@ -15,7 +15,7 @@ CREATE TABLE favorites (
     url VARCHAR NOT NULL,
     bitly_url VARCHAR NOT NULL,
     embed_url VARCHAR NOT NULL,
-    username VARCHAR NOT NULL,
+    item_username VARCHAR NOT NULL,
     source VARCHAR NOT NULL,
     source_post_url VARCHAR NOT NULL,
     rating VARCHAR NOT NULL,
