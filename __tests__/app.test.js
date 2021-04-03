@@ -374,6 +374,19 @@ describe('collection routes', () =>{
       });
     });
   });
-  
+
+  it('delete /collections/:id deletes the corresponding collection', () => {
+    return request(app)
+    .get('/api/collections/1')
+    .set('Authorization', token)
+    .then((res) => {
+      expect(res.body[0]).toEqual({
+        id: '1',
+        name: 'cheese turtles',
+        user_id: '1'
+      });
+    });
+  });
+
 })
 
