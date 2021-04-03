@@ -2,6 +2,7 @@ const pool = require('../lib/utils/pool');
 const setup = require('../data/setup');
 const app = require('../lib/app');
 const request = require('supertest');
+const supertest = require('supertest');
 const Favorite = require('../lib/models/Favorite');
 const Collection = require('../lib/models/Collection');
 
@@ -339,7 +340,7 @@ describe('collection routes', () =>{
   });
 
   it('put /collections/:id updated the name of a collection', () => {
-    return request(app)
+    request(app)
       .put('/api/collections/1')
       .set('Authorization', token)
       .send({ name: 'cheese turtles' })
@@ -349,31 +350,29 @@ describe('collection routes', () =>{
           name: 'cheese turtles',
           user_id: '1'
         });
-      })
-  });
+      });
 
-  it('put /collection/:id change is reflected when get /collection/:id', () =>{
     return request(app)
-      .get('/api/collections/1')
-        .set('Authorization', token)
-        .then((res) => {
-          expect(res.body[0]).toEqual({
-            collection_name: 'cheese turtles',
-            favorite_id: '1',
-            item_id: 'test1234',
-            title: 'cheese',
-            images: '{"type":"cheese","file":"images"}',
-            slug: 'cheese slug',  
-            url: 'cheese.com',
-            bitly_url: 'bitly.cheese.com',
-            embed_url: 'embed.cheese.com',
-            item_username: 'Cheese Baby',
-            source: 'cheese',
-            source_post_url: 'cheeseforever.com',
-            rating: 'g',
-            user_id: '1'
-          });
-        });
+    .get('/api/collections/1')
+    .set('Authorization', token)
+    .then((res) => {
+      expect(res.body[0]).toEqual({
+        collection_name: 'cheese turtles',
+        favorite_id: '1',
+        item_id: 'test1234',
+        title: 'cheese',
+        images: '{"type":"cheese","file":"images"}',
+        slug: 'cheese slug',  
+        url: 'cheese.com',
+        bitly_url: 'bitly.cheese.com',
+        embed_url: 'embed.cheese.com',
+        item_username: 'Cheese Baby',
+        source: 'cheese',
+        source_post_url: 'cheeseforever.com',
+        rating: 'g',
+        user_id: '1'
+      });
+    });
   });
   
 })
