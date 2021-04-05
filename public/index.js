@@ -1,19 +1,34 @@
 // import { sendSms } from '../lib/utils/twilio.js';
 
 const gifForm = document.getElementById('gifForm');
-const gifInput = document.getElementById('gifInput');
 const gifButton = document.getElementById('gifButton');
 const gifWrapper = document.getElementById('gifWrapper');
 const textForm = document.getElementById('textForm');
-const textInput = document.getElementById('textInput');
 const textButton = document.getElementById('textButton')
 
-gifForm.addEventListener('submit', () => {
-    console.log(gifInput.value);
+const appendGif = (gif) => {
+    const iframe = document.createElement('iframe');
+    iframe.src = `${gif.embed_url}`;
 
-    //get random endpoint
-    //gifInput.value is the query
-    //appends gifWrapper with result
+    gifWrapper.append(iframe);
+}
+
+const clearGifWrapper = () => {
+    gifWrapper.innerHTML = '';
+}
+
+gifButton.addEventListener('click', (event) => {
+    event.preventDefault();
+
+    const fd = new FormData(gifForm);
+    const query = fd.get('gifInput');
+
+    fetch(`/gifs/random/${query}`)
+        .then((res) => res.json())
+        .then(clearGifWrapper())
+        .then((gif) => {
+            appendGif(gif);
+        })
 })
 
 textForm.addEventListener('submit', () => {
@@ -23,4 +38,5 @@ textForm.addEventListener('submit', () => {
     // to: textInput.value
     // body: gif
     //how do I disable the send button without gif or number?
+    //how do i set the parameters of the number input?
 })
