@@ -2,9 +2,11 @@ const pool = require('../lib/utils/pool');
 const setup = require('../data/setup');
 const app = require('../lib/app');
 const request = require('supertest');
-const supertest = require('supertest');
 const Favorite = require('../lib/models/Favorite');
 const Collection = require('../lib/models/Collection');
+
+// jest.mock('../lib/utils/twilio');
+// const twilio = require('../lib/utils/twilio');
 
 // jest.mock('twilio', () => () => ({
 //   messages: {
@@ -12,7 +14,7 @@ const Collection = require('../lib/models/Collection');
 //   },
 // }));
 
-describe.skip('giphy routes', () => {
+describe('giphy routes', () => {
   it('get /trending calls on the giphy api and returns the trending gifs', () => {
     return request(app)
       .get('/gifs/trending')
@@ -53,9 +55,16 @@ describe.skip('giphy routes', () => {
       });
   });
 
+  it('sends a gif in an sms to the number in the input field', () => {
+    const data = request(app)
+      .get('/gifs/random/cheese');
+
+    console.log(data.body)
+  })
+
 });
 
-describe.skip('favorites routes', () =>{
+describe('favorites routes', () =>{
   beforeEach(() => {
   return setup(pool);
   });
@@ -93,9 +102,9 @@ describe.skip('favorites routes', () =>{
     }, 1)
   })
 
-  afterAll(done => {
-    return pool.end(done);
-  });
+  // afterAll(done => {
+  //   return pool.end(done);
+  // });
 
   it('post /favorites creates a new favorite', () => {
     const newFave = {
@@ -375,17 +384,39 @@ describe('collection routes', () =>{
     });
   });
 
-  it('delete /collections/:id deletes the corresponding collection', () => {
-    return request(app)
-    .get('/api/collections/1')
+  it.skip('delete /collections/:id deletes the corresponding collection', () => {
+    request(app)
+    .delete('/api/collections/1')
     .set('Authorization', token)
     .then((res) => {
-      expect(res.body[0]).toEqual({
+      expect(res.body).toEqual({
         id: '1',
-        name: 'cheese turtles',
+        name: 'turtles',
         user_id: '1'
       });
     });
+
+    return request(app)
+    .get('/api/favorites')
+    .set('Authorization', token)
+    .then((res) => {
+      expect(res.body[0]).toEqual({
+        collection_id: null,
+        id: '1',
+        item_id: 'test1234',
+        title: 'cheese',
+        images: '{"type":"cheese","file":"images"}',
+        slug: 'cheese slug',  
+        url: 'cheese.com',
+        bitly_url: 'bitly.cheese.com',
+        embed_url: 'embed.cheese.com',
+        item_username: 'Cheese Baby',
+        source: 'cheese',
+        source_post_url: 'cheeseforever.com',
+        rating: 'g',
+        user_id: '1'
+      });
+    });  
   });
 
 })
