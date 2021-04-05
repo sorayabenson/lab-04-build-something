@@ -4,15 +4,28 @@ const app = require('../lib/app');
 const request = require('supertest');
 const Favorite = require('../lib/models/Favorite');
 const Collection = require('../lib/models/Collection');
+const { sendSms } = require('../lib/utils/twilio');
 
-// jest.mock('../lib/utils/twilio');
-// const twilio = require('../lib/utils/twilio');
+jest.mock('../lib/utils/twilio');
+const twilio = require('../lib/utils/twilio');
 
-// jest.mock('twilio', () => () => ({
-//   messages: {
-//     create: jest.fn(),
-//   },
-// }));
+jest.mock('twilio', () => () => ({
+  messages: {
+    create: jest.fn(),
+  },
+}));
+
+describe('sendSms', () => {
+  beforeEach(() => {
+    twilio.sendSms.mockReset();
+  });
+
+  it('sends a gif in an sms to the number in the input field', () => {
+    twilio.sendSms(15034386848, 'hi');
+
+    expect(twilio.sendSms).toHaveBeenCalledTimes(1);
+  })
+})
 
 describe('giphy routes', () => {
   it('get /trending calls on the giphy api and returns the trending gifs', () => {
@@ -54,13 +67,6 @@ describe('giphy routes', () => {
         expect(res.status).toEqual(200);
       });
   });
-
-  it('sends a gif in an sms to the number in the input field', () => {
-    const data = request(app)
-      .get('/gifs/random/cheese');
-
-    console.log(data.body)
-  })
 
 });
 
