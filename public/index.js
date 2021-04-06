@@ -41,10 +41,6 @@ textButton.addEventListener('click', (e) => {
         .then(textSent(number))
         .then((res) => res.json());
 
-
-    //sendsSms sends gif in gifWrapper
-    // to: textInput.value
-    // body: gif
     //how do I disable the send button without gif or number?
     //how do i set the parameters of the number input?
 })
