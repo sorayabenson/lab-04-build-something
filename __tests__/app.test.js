@@ -15,7 +15,7 @@ jest.mock('twilio', () => () => ({
   },
 }));
 
-describe('secrets route', () => {
+describe.only('secrets route', () => {
   beforeEach(() => {
     twilio.sendSms.mockReset();
     return setup(pool);
