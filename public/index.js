@@ -30,14 +30,14 @@ textButton.addEventListener('click', (e) => {
     const number = fd.get('textInput');
 
     const gif = getGifData();
-    console.log(gif.bitly_url);
+    console.log(gif.embed_url);
 
     fetch(`/secrets/${number}`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
         },
-        body: gif.bitly_url,
+        body: { gif_url: gif.embed_url},
     })  
         .then((res) => res.json());
 

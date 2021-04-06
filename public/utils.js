@@ -20,24 +20,24 @@ export function clearGifWrapper() {
 }
 
 
-const gifKey = 'gifData';
+const GIF = 'gifData';
 const emptyData = {};
 
 export function saveGifData(gifData) {
-    const stringGifData = JSON.stringify(gifData);
+    let stringGifData = JSON.stringify(gifData);
 
-    localStorage.setItem(gifKey, stringGifData);
+    localStorage.setItem(GIF, stringGifData);
 }
 
 export function clearGifData() {
     const stringEmptyData = JSON.stringify(emptyData);
 
-    localStorage.setItem(gifKey, stringEmptyData);
+    localStorage.setItem(GIF, stringEmptyData);
 }
 
 export function getGifData() {
-    const stringGifData = localStorage.getItem(gifKey);
-    const parsedGifData = JSON.parse(stringGifData);
+    let stringGifData = localStorage.getItem(GIF);
+    let parsedGifData = JSON.parse(stringGifData);
     
     return parsedGifData;
 }
