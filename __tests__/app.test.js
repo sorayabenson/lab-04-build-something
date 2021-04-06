@@ -15,15 +15,27 @@ jest.mock('twilio', () => () => ({
   },
 }));
 
-describe('sendSms', () => {
+describe.only('secrets route', () => {
   beforeEach(() => {
     twilio.sendSms.mockReset();
-  });
+    return setup(pool);
+});
 
-  it('sends a gif in an sms to the number in the input field', () => {
-    twilio.sendSms(15034386848, 'hi');
+  it('post /:number saves the sent gif and sends it in a text to the recepient', () => {
+    const gif = { gif_url: 'https://gph.is/2jbfwwu' };
+    
+    return request(app)
+      .post('/secrets/15034386848')
+      .send(gif)
+      .then((res) => {
+        expect(twilio.sendSms).toHaveBeenCalledTimes(1);
+        expect(res.body).toEqual({
+          id: '1',
+          gif_url: 'https://gph.is/2jbfwwu'
+        })
+      });
 
-    expect(twilio.sendSms).toHaveBeenCalledTimes(1);
+    
   })
 })
 

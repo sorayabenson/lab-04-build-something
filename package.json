@@ -36,6 +36,7 @@
     "jsonwebtoken": "^8.5.1",
     "pg": "^8.5.1",
     "superagent": "^6.1.0",
-    "twilio": "^3.59.0"
+    "twilio": "^3.59.0",
+    "vanilla-require": "^1.0.2"
   }
 }

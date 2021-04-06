@@ -1,38 +1,46 @@
-// import { sendSms } from '../lib/utils/twilio.js';
+// import { sendSms } from './twilio-utils.js';
+import { appendGif, clearGifWrapper, textSent, saveGifData, clearGifData, getGifData } from './utils.js';
 
 const gifForm = document.getElementById('gifForm');
 const gifButton = document.getElementById('gifButton');
-const gifWrapper = document.getElementById('gifWrapper');
 const textForm = document.getElementById('textForm');
-const textButton = document.getElementById('textButton')
+const textButton = document.getElementById('textButton');
 
-const appendGif = (gif) => {
-    const iframe = document.createElement('iframe');
-    iframe.src = `${gif.embed_url}`;
-
-    gifWrapper.append(iframe);
-}
-
-const clearGifWrapper = () => {
-    gifWrapper.innerHTML = '';
-}
-
-gifButton.addEventListener('click', (event) => {
-    event.preventDefault();
+gifButton.addEventListener('click', (e) => {
+    e.preventDefault();
 
     const fd = new FormData(gifForm);
     const query = fd.get('gifInput');
 
+    clearGifData();
+    clearGifWrapper();
+
     fetch(`/gifs/random/${query}`)
         .then((res) => res.json())
-        .then(clearGifWrapper())
         .then((gif) => {
-            appendGif(gif);
+            saveGifData(gif)
+            appendGif(gif)
         })
 })
 
-textForm.addEventListener('submit', () => {
-    console.log(textInput.value);
+textButton.addEventListener('click', (e) => {
+    e.preventDefault();
+
+    const fd = new FormData(textForm);
+    const number = fd.get('textInput');
+
+    const gif = getGifData();
+    console.log(gif.bitly_url);
+
+    fetch(`/secrets/${number}`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: gif.bitly_url,
+    })  
+        .then((res) => res.json());
+
 
     //sendsSms sends gif in gifWrapper
     // to: textInput.value
