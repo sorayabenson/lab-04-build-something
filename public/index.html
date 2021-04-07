@@ -5,6 +5,12 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./index.css">
+    <link
+     rel="stylesheet"
+     href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/css/intlTelInput.css"
+   />
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/intlTelInput.min.js"></script>
+    
     <title>unsolicited gif pics</title>
 </head>
 
@@ -33,16 +39,15 @@
             <input 
                 id="textInput" 
                 class="textInput"
-                name="textInput"
-                placeholder="your friend's #" 
-                type="number" 
+                name="textInput" 
+                type="tel"
                 autocomplete="mobile">
-            <button id="textButton" class="=textButton">send</button>
+            <button id="textButton" class="=textButton" value="Verify">send</button>
         </form>
 
-        <div id="textSent" class="textSent">hello</div>
+        <div id="textSent" class="textSent"></div>
 
-        <!-- <button>reset</button> -->
+        <button id="reset" class="reset">reset</button>
 
     </main>
 
@@ -51,5 +56,6 @@
     </footer>
 
     <script type='module' src='./index.js'></script>
+
 </body>
 </html>

@@ -1,12 +1,4 @@
 const gifWrapper = document.getElementById('gifWrapper');
-const textSentWrapper = document.getElementById('textSent');
-
-export function textSent(number) {
-    const p = document.createElement('p')
-    p.textContent = `Yay, your gif to ${number} has been sent!`;
-
-    textSentWrapper.append(p);
-}
 
 export function appendGif(gif) {
     const iframe = document.createElement('iframe');

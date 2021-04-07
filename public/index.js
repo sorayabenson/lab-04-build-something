@@ -1,10 +1,13 @@
-// import { sendSms } from './twilio-utils.js';
-import { appendGif, clearGifWrapper, textSent, saveGifData, clearGifData, getGifData } from './utils.js';
+import { appendGif, clearGifWrapper, saveGifData, clearGifData, getGifData } from './utils.js';
+import { phoneNumberProcess } from './phone-utils.js';
 
 const gifForm = document.getElementById('gifForm');
 const gifButton = document.getElementById('gifButton');
 const textForm = document.getElementById('textForm');
 const textButton = document.getElementById('textButton');
+const resetButton = document.getElementById('reset')
+
+textButton.disabled = true;
 
 gifButton.addEventListener('click', (e) => {
     e.preventDefault();
@@ -21,6 +24,7 @@ gifButton.addEventListener('click', (e) => {
             saveGifData(gif)
             appendGif(gif)
         })
+        .then(textButton.disabled = false)
 })
 
 textButton.addEventListener('click', (e) => {
@@ -38,9 +42,15 @@ textButton.addEventListener('click', (e) => {
         },
         body: JSON.stringify({ gif_url: gif.images.downsized.url}),
     })  
-        .then(textSent(number))
+        .then(phoneNumberProcess())
         .then((res) => res.json());
+})
 
-    //how do I disable the send button without gif or number?
-    //how do i set the parameters of the number input?
+resetButton.addEventListener('click', (e) => {
+    e.preventDefault();
+
+    gifForm.reset();
+    textForm.reset();
+    clearGifWrapper();
+    textButton.disabled = true;
 })
