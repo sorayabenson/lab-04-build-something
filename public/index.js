@@ -34,7 +34,7 @@ textButton.addEventListener('click', (e) => {
     const number = fd.get('textInput');
 
     const gif = getGifData();
-
+    
     fetch(`/secrets/${number}`, {
         method: 'POST',
         headers: {
