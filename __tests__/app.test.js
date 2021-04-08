@@ -4,15 +4,40 @@ const app = require('../lib/app');
 const request = require('supertest');
 const Favorite = require('../lib/models/Favorite');
 const Collection = require('../lib/models/Collection');
+const { sendSms } = require('../lib/utils/twilio');
 
-// jest.mock('../lib/utils/twilio');
-// const twilio = require('../lib/utils/twilio');
+jest.mock('../lib/utils/twilio');
+const twilio = require('../lib/utils/twilio');
 
-// jest.mock('twilio', () => () => ({
-//   messages: {
-//     create: jest.fn(),
-//   },
-// }));
+jest.mock('twilio', () => () => ({
+  messages: {
+    create: jest.fn(),
+  },
+}));
+
+describe.only('secrets route', () => {
+  beforeEach(() => {
+    twilio.sendSms.mockReset();
+    return setup(pool);
+});
+
+  it('post /:number saves the sent gif and sends it in a text to the recepient', () => {
+    const gif = { gif_url: 'https://gph.is/2jbfwwu' };
+    
+    return request(app)
+      .post('/secrets/15034386848')
+      .send(gif)
+      .then((res) => {
+        expect(twilio.sendSms).toHaveBeenCalledTimes(1);
+        expect(res.body).toEqual({
+          id: '1',
+          gif_url: 'https://gph.is/2jbfwwu'
+        })
+      });
+
+    
+  })
+})
 
 describe('giphy routes', () => {
   it('get /trending calls on the giphy api and returns the trending gifs', () => {
@@ -54,13 +79,6 @@ describe('giphy routes', () => {
         expect(res.status).toEqual(200);
       });
   });
-
-  it('sends a gif in an sms to the number in the input field', () => {
-    const data = request(app)
-      .get('/gifs/random/cheese');
-
-    console.log(data.body)
-  })
 
 });
 

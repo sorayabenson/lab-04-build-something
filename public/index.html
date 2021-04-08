@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./index.css">
+    <link
+     rel="stylesheet"
+     href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/css/intlTelInput.css"
+   />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/intlTelInput.min.js"></script>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap" rel="stylesheet">
+    <title>unsolicited gif pics</title>
+</head>
+
+<body>
+    <header>
+        <h1>unsolicited gif pic</h1>
+    </header>
+
+    <main>
+        <h3 id="title" class="title">text your friends a random gif anonymously!</h3>
+
+        <p class="instructions">type in a searchword, and press go to to generate a random gif, then enter in your friend's number and press send!</p>
+
+        <form id="gifForm" class="gifForm">
+            <input 
+                id="gifInput" 
+                class="gifInput"
+                name="gifInput"
+                placeholder="gif search" type="search">
+            <button id="gifButton" class="gifButton">go</button>
+        </form>
+
+        <div id="gifWrapper" class="gifWrapper"></div>
+
+        <form id="textForm" class="textForm">
+            <input 
+                id="textInput" 
+                class="textInput"
+                name="textInput" 
+                type="tel"
+                autocomplete="mobile">
+            <button id="textButton" class="=textButton" value="Verify">send</button>
+        </form>
+
+        <div id="textSent" class="textSent"></div>
+
+        <button id="reset" class="reset">reset</button>
+
+    </main>
+
+    <footer>
+        <p>nonsense for life, bebe</p>
+    </footer>
+
+    <script type='module' src='./index.js'></script>
+
+</body>
+</html>

@@ -1,4 +1,4 @@
-DROP TABLE IF EXISTS users, favorites, collections;
+DROP TABLE IF EXISTS users, favorites, collections, secrets;
 
 CREATE TABLE users (
     id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
@@ -26,4 +26,8 @@ CREATE TABLE collections (
     id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     name VARCHAR NOT NULL,
     user_id BIGINT NOT NULL
+);
+CREATE TABLE secrets (
+    id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    gif_url VARCHAR NOT NULL
 );

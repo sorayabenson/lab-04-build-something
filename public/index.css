@@ -1,0 +1,126 @@
+* {
+    box-sizing: border-box;
+}
+
+body, html {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    font-family: 'Lato', sans-serif;
+}
+
+body {
+    padding: 2rem;
+    border-radius: 6px;
+    background-color: #fff5f2;
+    /* background-image: linear-gradient(
+        135deg,
+        #EFC4BB,
+        #F6D0C7,
+        #FDE0DA
+    ); */
+    /* box-shadow: 
+        2px 0 1.5px -1.5px #7C5558 inset,
+        3.5px 0 2.5px -2.5px #AE857F inset,
+        4.5px 0 2.5px -2.5px #D8B5AF inset,
+        5.5px 0 2.5px -2.5px #DBBBB0 inset,
+        6.5px 0 2.5px -2.5px #DFBDB1 inset,
+        -3px 0 2px -2px #F9EAE5 inset,
+        -3.5px 0 2px -2px #FFF0ED inset,
+        -4.5px 0 2px -2px #FDDFD4 inset,
+        -5.5px 0 2px -2px #FEE1DB inset,
+        0 2px 2px -2px #EBCDCF inset,
+        0 4px 2px -2px #EEC8C7 inset,
+        0 5px 2px -2px #F4CfC7 inset,
+        0 -2px 1.5px -1.5px #E8D4DD inset,
+        0 -4.5px 1.5px -1.5px #F4CFC7 inset,
+        0 -5px 1.5px -1.5px #FFFDFB inset
+        ; */
+
+}
+
+main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+iframe {
+    border: none;
+    height: 9.4rem;
+}
+
+input {
+    height: 1.8rem;
+    width: 15rem;
+    font-family: 'Lato', sans-serif;
+    font-size: .9rem;
+    padding-left: 0.7rem;
+    margin: 0.3rem 0 0.3rem 0;
+    border: none;
+    border-radius: 0.3rem;
+}
+
+h1 {
+    font-size: 2.7rem;
+    font-weight: 800;
+    margin: 0rem;
+}
+
+h3 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    text-align: center;
+    margin: 1rem;
+}
+
+p {
+    font-size: 1.2rem;
+    text-align: center;
+    margin: 0.5rem;
+    margin-bottom: 1.4rem;
+}
+
+button {
+    height: 1.8rem;
+    width: 3.2rem;
+    margin: 0.3rem;
+    font-family: 'Lato', sans-serif;
+    font-size: .9rem;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    border-radius: 0.3rem;
+    box-shadow: 0 0 0.25px rgba(241, 249, 255, 0.15) inset,
+    -0.75px -1.5px 1.5px rbga(44, 6, 13, 0.05) inset;
+    background:cornsilk;
+    color: black;
+    border: black 2px solid;
+}
+
+footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    text-align: center;
+    padding: 1rem;
+}
+
+.gifWrapper {
+    width: 19rem;
+    height: 9.4rem;
+    margin: 0.5rem;
+}
+
+.textSent {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 19rem;
+    height: 4rem;
+    margin: 1rem;
+}
